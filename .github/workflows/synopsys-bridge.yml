@@ -49,4 +49,4 @@ jobs:
           #GH_TOKEN: ${{ steps.app-token.outputs.token }}
       run: |
         curl -fLsS -o bridge.zip ${{ vars.BRIDGECLI_LINUX64 }} && unzip -qo -d $RUNNER_TEMP bridge.zip && rm -f bridge.zip
-        $RUNNER_TEMP/bridge-cli --stage polaris
+        $RUNNER_TEMP/synopsys-bridge --stage polaris
