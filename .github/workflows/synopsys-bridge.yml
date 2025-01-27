@@ -1,0 +1,52 @@
+name: polaris-bridge-cli
+
+on:
+  workflow_dispatch:
+  push:
+  pull_request:
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    env:
+      BRIDGE_POLARIS_SERVERURL: ${{ secrets.BRIDGE_SERVERURL }}
+      BRIDGE_POLARIS_ACCESSTOKEN: ${{ secrets.BRIDGE_ACCESSTOKEN }}
+      BRIDGE_POLARIS_ASSESSMENT_TYPES: 'SAST,SCA'
+      BRIDGE_POLARIS_APPLICATION_NAME: ${{ github.event.repository.name }}
+      BRIDGE_POLARIS_PROJECT_NAME: ${{ github.event.repository.name }}
+      BRIDGE_POLARIS_BRANCH_NAME: ${{ github.event.ref_name }}
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: maven
+    - name: Build with Maven
+      run: mvn -B package --file pom.xml
+
+    - name: Create artifact
+      run: | 
+        cd target
+        ls -lrt
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: result-artifact
+        path: target/my-app-1.0-SNAPSHOT.jar
+    - name: download artifact
+      uses: actions/download-artifact@v4
+      with:
+         name: result-artifact
+         path: ./target
+    - name: Display structure of downloaded files
+      run: ls -R target/my-app-1.0-SNAPSHOT.jar
+    - name: Polaris Full Scan
+      if: ${{ github.event_name != 'pull_request' }}
+          #GH_TOKEN: ${{ steps.app-token.outputs.token }}
+      run: |
+          curl -fLsS -o bridge.zip ${{ vars.BRIDGECLI_LINUX64 }} && unzip -qo -d $RUNNER_TEMP bridge.zip && rm -f bridge.zip
+          Expand-$RUNNER_TEMP/bridge-cli --stage polaris
