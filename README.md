@@ -1,1 +1,3 @@
-# maven-github-action
+# jenkins-maven - project
+
+# sudo usermod -aG docker jenkins
