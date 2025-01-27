@@ -48,5 +48,5 @@ jobs:
       if: ${{ github.event_name != 'pull_request' }}
           #GH_TOKEN: ${{ steps.app-token.outputs.token }}
       run: |
-          curl -fLsS -o bridge.zip ${{ vars.BRIDGECLI_LINUX64 }} && unzip -qo -d $RUNNER_TEMP bridge.zip && rm -f bridge.zip
-          $RUNNER_TEMP/bridge-cli --stage polaris
+        curl -fLsS -o bridge.zip ${{ vars.BRIDGECLI_LINUX64 }} && unzip -qo -d $RUNNER_TEMP bridge.zip && rm -f bridge.zip
+        $RUNNER_TEMP/bridge-cli --stage polaris
