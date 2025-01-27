@@ -1,4 +1,4 @@
-name: Java CI with Maven
+name: polaris-bridge-cli
 
 on:
   workflow_dispatch:
@@ -38,6 +38,16 @@ jobs:
     - name: Display structure of downloaded files
       run: ls -R target/my-app-1.0-SNAPSHOT.jar
 
-    # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
-    - name: Update dependency graph
-      uses: advanced-security/maven-dependency-submission-action@571e99aab1055c2e71a1e2309b9691de18d6b7d6
+    - name: Polaris Full Scan
+      if: ${{ github.event_name != 'pull_request' }}
+      env:
+        BRIDGE_POLARIS_SERVERURL: ${{ secrets.BRIDGE_SERVERURL }}
+        BRIDGE_POLARIS_ACCESSTOKEN: ${{ secrets.BRIDGE_ACCESSTOKEN }}
+        BRIDGE_POLARIS_ASSESSMENT_TYPES: 'SAST,SCA'
+        BRIDGE_POLARIS_APPLICATION_NAME: ${{ github.event.repository.name }}
+        BRIDGE_POLARIS_PROJECT_NAME: ${{ github.event.repository.name }}
+        BRIDGE_POLARIS_BRANCH_NAME: ${{ github.event.ref_name }}
+        GH_TOKEN: ${{ steps.app-token.outputs.token }}
+        run: |
+            curl -fLsS -o bridge.zip ${{ vars.BRIDGECLI_LINUX64 }} && unzip -qo -d $RUNNER_TEMP bridge.zip && rm -f bridge.zip
+            Expand-$RUNNER_TEMP/bridge-cli --stage polaris
