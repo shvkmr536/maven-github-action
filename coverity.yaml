@@ -2,5 +2,3 @@ capture:
   build:
     clean-command: mvn -B clean
     build-command: mvn -B -DskipTests package
-  cov-analyze-args: ["--detect.diagnostic",
-    "--detect.diagnostic", "true"]
