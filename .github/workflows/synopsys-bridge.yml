@@ -31,4 +31,4 @@ jobs:
       run: |
          ls -lrt $RUNNER_TEMP
          curl -fLsS -o bridge.zip ${{ vars.BRIDGECLI_LINUX64 }} && unzip -qo -d $RUNNER_TEMP bridge.zip && rm -f bridge.zip
-          $RUNNER_TEMP/synopsys-bridge --verbose "--diagnostics --stage polaris
+          $RUNNER_TEMP/synopsys-bridge --verbose --diagnostics --stage polaris
