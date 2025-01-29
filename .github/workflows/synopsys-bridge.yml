@@ -34,10 +34,11 @@ jobs:
           $RUNNER_TEMP/synopsys-bridge --verbose --diagnostics --stage polaris 
     
     - name: Create artifact
-      run: | 
-          cd .bridge/"Polaris Blackduck Execution"/detect/runs
-          ls -lrt
-          mv detect-run-* detect-run.zip
+      run: 
+        cd .bridge/"Polaris Blackduck Execution"/detect/runs
+        ls -lrt
+        mv detect-run-* detect-run.zip
+        ls -lrt
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
