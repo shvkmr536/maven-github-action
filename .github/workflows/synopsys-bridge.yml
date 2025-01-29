@@ -35,13 +35,14 @@ jobs:
     
     - name: Create artifact
       run: | 
-          cd /home/runner/work/maven-github-action/maven-github-action/.bridge/"Polaris Blackduck Execution"/detect/runs
+          cd .bridge/"Polaris Blackduck Execution"/detect/runs
           ls -lrt
+          mv detect-run-* detect-run.zip
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
-        name: 'result-artifact*'
-        path: ./.bridge/"Polaris Blackduck Execution"/detect/runs/
+        name: 'result-artifact'
+        path: /.bridge/"Polaris Blackduck Execution"/detect/runs/detect-run.zip
     - name: download artifact
       uses: actions/download-artifact@v4
       with:
