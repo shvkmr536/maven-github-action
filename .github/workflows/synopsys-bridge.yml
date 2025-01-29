@@ -37,15 +37,15 @@ jobs:
       run: 
         cd .bridge/"Polaris Blackduck Execution"/detect/runs
         ls -lrt
-        mv detect-run-* detect-run.zip | ls -lrt
+        mv detect-run-* detect-run.zip
         
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
         name: 'result-artifact'
-        path: /.bridge/"Polaris Blackduck Execution"/detect/runs/detect-run.zip
+        path: .bridge/"Polaris Blackduck Execution"/detect/runs/detect-run.zip
     - name: download artifact
       uses: actions/download-artifact@v4
       with:
           name: 'result-artifact*'
-          path: ./.bridge/"Polaris Blackduck Execution"/detect/runs
+          path: .bridge/"Polaris Blackduck Execution"/detect/runs
