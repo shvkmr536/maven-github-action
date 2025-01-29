@@ -31,4 +31,19 @@ jobs:
       run: |
          ls -lrt $RUNNER_TEMP
          curl -fLsS -o bridge.zip ${{ vars.BRIDGECLI_LINUX64 }} && unzip -qo -d $RUNNER_TEMP bridge.zip && rm -f bridge.zip
-          $RUNNER_TEMP/synopsys-bridge --verbose --diagnostics --stage polaris
+          $RUNNER_TEMP/synopsys-bridge --verbose --diagnostics --stage polaris 
+    
+    - name: Create artifact
+      run: | 
+          cd /home/runner/work/maven-github-action/maven-github-action/.bridge/Polaris Blackduck Execution/detect/runs
+          ls -lrt
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: result-artifact
+        path: /home/runner/work/maven-github-action/maven-github-action/.bridge/Polaris Blackduck Execution/detect/runs/detect-run-2025-01-29-11-51-54-051.zip
+    - name: download artifact
+      uses: actions/download-artifact@v4
+      with:
+          name: result-artifact
+          path: ./home/runner/work/maven-github-action/maven-github-action/.bridge/Polaris Blackduck Execution/detect/runs
