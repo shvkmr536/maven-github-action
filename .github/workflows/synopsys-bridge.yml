@@ -40,11 +40,10 @@ jobs:
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
-        name: result-artifact
+        name: 'result-artifact*'
         path: /home/runner/work/maven-github-action/maven-github-action/.bridge/"Polaris Blackduck Execution"/detect/runs/
-        run: ls -lrt
     - name: download artifact
       uses: actions/download-artifact@v4
       with:
-          name: result-artifact
+          name: 'result-artifact*'
           path: ./home/runner/work/maven-github-action/maven-github-action/.bridge/"Polaris Blackduck Execution"/detect/runs
