@@ -35,24 +35,24 @@ jobs:
           $RUNNER_TEMP/synopsys-bridge --verbose --diagnostics --stage polaris 
 
     
-    - name: Create artifact
-      run: | 
-        cd .bridge/"Polaris Blackduck Execution"/detect/runs
-        ls -lrt
+    - name: Create artifact 
+        #cd .bridge/'Polaris Blackduck Execution'/detect/runs
+      run: |
+        ls -la /.bridge/'Polaris Blackduck Execution'/detect/runs/
         mv detect-run-* detect-run.zip
-        ls -lrt
 
         
-    - name: Upload artifact
+    - name: Upload Artifact
       uses: actions/upload-artifact@v4
       with:
-        type: 'zip'
-        filename: 'detect-run.zip'
-        name: 'result-artifact'
+        filename: detect-run.zip
+        name: result-artifact
         include-hidden-files: true
-        path: /.bridge/"Polaris Blackduck Execution"/detect/runs/detect-run.zip
+        path: /.bridge/'Polaris Blackduck Execution'/detect/runs/detect-run.zip
         if-no-files-found: error
         overwrite: true
+        compression-level: 6
+      
         
     #- name: download artifact
     #  uses: actions/download-artifact@v4
