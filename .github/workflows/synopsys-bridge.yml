@@ -39,29 +39,18 @@ jobs:
     - name: Download build artifact
       uses: actions/download-artifact@v4
       with:
-       name: ${{steps.build-step.outputs.artifact-name}}
-    #- name: Create artifact
-        #ls -la /.bridge/'Polaris Blackduck Execution'/detect/runs/ 
-    #  run: |
-    #    cd .bridge/'Polaris Blackduck Execution'/detect/runs
-    #    mv detect-run-* detect-run.zip
-    #    ls -al
-
-        
-    #- name: Upload Artifact
+       name: result-artifact
+       path: ./home/runner/work/maven-github-action/maven-github-action/.bridge/Polaris Blackduck Execution/detect/runs/detect-run-2025-01-30-14-49-12-442.zip
+      
+    #- name: Upload artifact
     #  uses: actions/upload-artifact@v4
     #  with:
-    #    filename: detect-run.zip
-    #   name: result-artifact
-    #    include-hidden-files: true
-    #    path: /.bridge/'Polaris Blackduck Execution'/detect/runs/detect-run.zip
-    #    if-no-files-found: error
-    #    overwrite: true
-    #    compression-level: 6
-      
-        
+    #    name: result-artifact
+    #    path: target/my-app-1.0-SNAPSHOT.jar
     #- name: download artifact
     #  uses: actions/download-artifact@v4
     #  with:
-    #      name: 'result-artifact'
-    #      path: /.bridge/"Polaris Blackduck Execution"/detect/runs
+    #    name: result-artifact
+    #    path: ./target
+    #- name: Display structure of downloaded files
+    #  run: ls -R target/my-app-1.0-SNAPSHOT.jar
