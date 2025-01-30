@@ -35,18 +35,20 @@ jobs:
          curl -fLsS -o bridge.zip ${{ vars.BRIDGECLI_LINUX64 }} && unzip -qo -d $RUNNER_TEMP bridge.zip && rm -f bridge.zip
          $RUNNER_TEMP/synopsys-bridge --verbose --diagnostics --stage polaris
 
-
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: result-artifact
+        path: ${{ github.workspace }}
+        
     - name: Download build artifact
       uses: actions/download-artifact@v4
       with:
        name: result-artifact
-       path: ${{ github.workspace }}/.bridge/Polaris Blackduck Execution/detect/runs/*
+       path: ${{ github.workspace }}
+       merge-multiple: true
       
-    #- name: Upload artifact
-    #  uses: actions/upload-artifact@v4
-    #  with:
-    #    name: result-artifact
-    #    path: target/my-app-1.0-SNAPSHOT.jar
+    
     #- name: download artifact
     #  uses: actions/download-artifact@v4
     #  with:
