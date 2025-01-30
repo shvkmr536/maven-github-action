@@ -35,11 +35,12 @@ jobs:
           $RUNNER_TEMP/synopsys-bridge --verbose --diagnostics --stage polaris 
 
     
-    - name: Create artifact 
-        #cd .bridge/'Polaris Blackduck Execution'/detect/runs
+    - name: Create artifact
+        #ls -la /.bridge/'Polaris Blackduck Execution'/detect/runs/ 
       run: |
-        ls -la /.bridge/'Polaris Blackduck Execution'/detect/runs/
+        cd .bridge/'Polaris Blackduck Execution'/detect/runs
         mv detect-run-* detect-run.zip
+        ls -al
 
         
     - name: Upload Artifact
