@@ -44,9 +44,9 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: 'result-artifact'
+        include-hidden-files: true
         path: ./.bridge/"Polaris Blackduck Execution"/detect/runs/detect-run.zip
-        run: |
-          ls -lrt
+        
     - name: download artifact
       uses: actions/download-artifact@v4
       with:
