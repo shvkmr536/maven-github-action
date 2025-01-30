@@ -46,11 +46,12 @@ jobs:
       with:
         name: 'result-artifact'
         include-hidden-files: true
-        path: /.bridge/"Polaris Blackduck Execution"/detect/runs/
+        path: /.bridge/"Polaris Blackduck Execution"/detect/runs/detect-run.zip
         if-no-files-found: error
+        overwrite: true
         
     - name: download artifact
       uses: actions/download-artifact@v4
       with:
-          name: 'result-artifact*'
+          name: 'result-artifact'
           path: /.bridge/"Polaris Blackduck Execution"/detect/runs
