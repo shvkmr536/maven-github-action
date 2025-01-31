@@ -41,12 +41,14 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: result-artifact
+        include-hidden-files: true
         path: ${{ github.workspace }}
 
     - name: Download build artifact
       uses: actions/download-artifact@v4
       with:
        name: result-artifact
+       include-hidden-files: true
        path: ${{ github.workspace }}
        merge-multiple: true
       
