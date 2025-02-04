@@ -44,6 +44,7 @@ jobs:
         name: result-artifact
         include-hidden-files: true
         path: ${{ github.workspace }}/.bridge/Polaris Blackduck Execution/detect/runs/
+        overwrite: true
 
     - name: Download build artifact
       uses: actions/download-artifact@v4
@@ -51,7 +52,7 @@ jobs:
        name: result-artifact
        include-hidden-files: true
        path: ${{ github.workspace }}/.bridge/Polaris Blackduck Execution/detect/runs/
-       merge-multiple: true
+       overwrite: true
       
     
     #- name: download artifact
