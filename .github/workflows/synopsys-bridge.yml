@@ -18,7 +18,7 @@ jobs:
       BRIDGE_POLARIS_BRANCH_NAME: ${{ github.event.ref_name }}
       #BRIDGE_DETECT_ARGS: '-d'
       #BRIDGE_DETECT_ARGS: --detect.cleanup=false 
-      BRIDGE_DETECT_ARGS: --detect.component.location.analysis.enabled=false
+      BRIDGE_DETECT_ARGS: --detect.component.location.analysis.enabled=true
 
     steps:
     - name: Checkout Source
