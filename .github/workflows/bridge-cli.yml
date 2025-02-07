@@ -43,7 +43,7 @@ jobs:
       with:
         name: result-artifact
         include-hidden-files: true
-        path: ${{ github.workspace }}/.bridge/Polaris Blackduck Execution/detect/runs/
+        path: ${{ github.workspace }}/.bridge/Polaris SCA Execution/detect/runs/
         overwrite: true
 
     - name: Download build artifact
@@ -51,7 +51,7 @@ jobs:
       with:
        name: result-artifact
        include-hidden-files: true
-       path: ${{ github.workspace }}/.bridge/Polaris Blackduck Execution/detect/runs/
+       path: ${{ github.workspace }}/.bridge/Polaris SCA Execution/detect/runs/
        overwrite: true
       
     
