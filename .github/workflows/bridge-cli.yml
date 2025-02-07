@@ -33,8 +33,9 @@ jobs:
       run: |
          ls -lrt $RUNNER_TEMP
          curl -fLsS -o bridge.zip ${{ vars.LATEST_BRIDGECLI_LINUX64 }} && unzip -qo -d $RUNNER_TEMP bridge.zip && rm -f bridge.zip
-         $RUNNER_TEMP/bridge-cli --verbose --stage polaris
          ls -lrt $RUNNER_TEMP
+         $RUNNER_TEMP/bridge-cli-bundle-linux64/bridge-cli --verbose --stage polaris
+         ls -lrt $RUNNER_TEMP/bridge-cli-bundle-linux64
          ls -lrt ${{ github.workspace }}
 
     - name: Upload artifact
