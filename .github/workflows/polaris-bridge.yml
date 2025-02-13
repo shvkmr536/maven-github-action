@@ -30,13 +30,13 @@ jobs:
         BRIDGE_POLARIS_PROJECT_NAME: ${{ github.event.repository.name }}
         BRIDGE_POLARIS_BRANCH_NAME: ${{ github.event.ref_name }}
         #BRIDGE_DETECT_ARGS: '-d'
-        BRIDGE_DETECT_ARGS: --detect.cleanup=true
+        #BRIDGE_DETECT_ARGS: --detect.cleanup=true
         #BRIDGE_DETECT_ARGS: --detect.component.location.analysis.enabled=true
         BRIDGE_BLACKDUCK_ARGS: --detect.component.location.analysis.enabled=false
       run: |
          curl -fLsS -o bridge.zip ${{ vars.BRIDGECLI_LINUX64 }} && unzip -qo -d $RUNNER_TEMP bridge.zip && rm -f bridge.zip
          ls -lrt $RUNNER_TEMP
-         $RUNNER_TEMP/synopsys-bridge --verbose --diagnostics --stage polaris
+         $RUNNER_TEMP/synopsys-bridge --verbose --stage polaris
          ls -lrt $RUNNER_TEMP
          ls -lrt ${{ github.workspace }}
 
