@@ -33,6 +33,6 @@ jobs:
       run: |
          curl -fLsS -o bridge.zip ${{ vars.BRIDGECLI_LINUX64 }} && unzip -qo -d $RUNNER_TEMP bridge.zip && rm -f bridge.zip
          ls -lrt $RUNNER_TEMP
-         $RUNNER_TEMP/synopsys-bridge --verbose --stage polaris
+         $RUNNER_TEMP/synopsys-bridge --verbose --stage polaris > current_scan_results.json
          ls -lrt $RUNNER_TEMP
          ls -lrt ${{ github.workspace }}
