@@ -33,12 +33,21 @@ jobs:
       run: |
          curl -fLsS -o bridge.zip ${{ vars.BRIDGECLI_LINUX64 }} && unzip -qo -d $RUNNER_TEMP bridge.zip && rm -f bridge.zip
          ls -lrt $RUNNER_TEMP
-         $RUNNER_TEMP/synopsys-bridge --verbose --stage polaris > current_scan_results.json
+         $RUNNER_TEMP/synopsys-bridge --verbose --stage polaris > current_scan_results.json 2> error.log
+          if [ -s error.log ]; then
+            echo "Error: bridge-cli scan produced the following errors:"
+            cat error.log
+            exit 1
+          fi
           if ! jq empty current_scan_results.json; then
             echo "Error: Invalid JSON output from bridge-cli scan"
             exit 1
           fi
-          defects=$(jq '.defects | length' current_scan_results.json || jq '.results.issues | length' current_scan_results.json)
+          defects=$(jq '.defects | length' current_scan_results.json)
           echo "defects=${defects}" >> $GITHUB_ENV
-         ls -lrt $RUNNER_TEMP
-         ls -lrt ${{ github.workspace }}
+
+    - name: Retrieve previous scan results
+      id: get_previous_results
+      run: |
+        previous_defects=0 # Replace with logic to get previous defect count
+        echo "previous_defects=${previous_defects}" >> $GITHUB_ENV
