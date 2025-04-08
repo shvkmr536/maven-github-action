@@ -40,21 +40,21 @@ jobs:
          ls -lrt $RUNNER_TEMP/bridge-cli-bundle-linux64
          ls -lrt ${{ github.workspace }}
 
-    - name: Upload artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: result-artifact
-        include-hidden-files: true
-        path: ${{ github.workspace }}/.bridge/Polaris SCA Execution/detect/runs/
-        overwrite: true
+    #- name: Upload artifact
+    #  uses: actions/upload-artifact@v4
+    #  with:
+    #    name: result-artifact
+    #    include-hidden-files: true
+    #    path: ${{ github.workspace }}/.bridge/Polaris SCA Execution/detect/runs/
+    #    overwrite: true
 
-    - name: Download build artifact
-      uses: actions/download-artifact@v4
-      with:
-       name: result-artifact
-       include-hidden-files: true
-       path: ${{ github.workspace }}/.bridge/Polaris SCA Execution/detect/runs/
-       overwrite: true
+    #- name: Download build artifact
+    #  uses: actions/download-artifact@v4
+    #  with:
+    #   name: result-artifact
+    #  include-hidden-files: true
+    #   path: ${{ github.workspace }}/.bridge/Polaris SCA Execution/detect/runs/
+    #   overwrite: true
       
     
     #- name: download artifact
