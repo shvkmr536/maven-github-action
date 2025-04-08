@@ -38,8 +38,8 @@ jobs:
          ls -lrt $RUNNER_TEMP
          $RUNNER_TEMP/bridge-cli-bundle-linux64/bridge-cli --verbose --diagnostics --stage polaris
          ls -lrt $RUNNER_TEMP/bridge-cli-bundle-linux64
-         ls -lrt ${{ github.workspace }}
-
+         ls -lrt ${{ github.workspace }} 
+# added comment for build
     #- name: Upload artifact
     #  uses: actions/upload-artifact@v4
     #  with:
