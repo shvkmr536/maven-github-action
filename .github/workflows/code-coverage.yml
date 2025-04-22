@@ -1,0 +1,53 @@
+name: code-coverage
+
+on:
+  workflow_dispatch:
+  push: 
+     branches: [develop]
+  pull_request:
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    env:
+        BRIDGE_POLARIS_SERVERURL: ${{ secrets.BRIDGE_SERVERURL }}
+        BRIDGE_POLARIS_ACCESSTOKEN: ${{ secrets.BRIDGE_ACCESSTOKEN }}
+        BRIDGE_POLARIS_ASSESSMENT_TYPES: 'SAST,SCA'
+        BRIDGE_POLARIS_APPLICATION_NAME: ${{ github.event.repository.name }}
+        BRIDGE_POLARIS_PROJECT_NAME: ${{ github.event.repository.name }}
+        BRIDGE_POLARIS_BRANCH_NAME: ${{ github.event.ref_name }}
+        BRIDGE_BLACKDUCK_ARGS: --detect.component.location.analysis.enabled=${{ vars.ENABLER }}
+    steps:
+    - name: Checkout Source
+      uses: actions/checkout@v4
+    - name: Setup Java JDK
+      uses: actions/setup-java@v4
+      id: build-step
+      with:
+        java-version: 17
+        distribution: microsoft
+        cache: maven
+    - name: Polaris Full Scan
+      if: ${{ github.event_name != 'pull_request' }}
+      run: |
+         curl -fLsS -o bridge.zip ${{ vars.BRIDGECLI_LINUX64 }} && unzip -qo -d $RUNNER_TEMP bridge.zip && rm -f bridge.zip
+         ls -lrt $RUNNER_TEMP
+         $RUNNER_TEMP/synopsys-bridge --verbose --stage polaris > current_scan_results.json 2> error.log
+          if [ -s error.log ]; then
+            echo "Error: bridge-cli scan produced the following errors:"
+            cat error.log
+            exit 1
+          fi
+          if ! jq empty current_scan_results.json; then
+            echo "Error: Invalid JSON output from bridge-cli scan"
+            exit 1
+          fi
+          defects=$(jq '.defects | length' current_scan_results.json)
+          echo "defects=${defects}" >> $GITHUB_ENV
+
+    - name: Retrieve previous scan results
+      id: get_previous_results
+      run: |
+        previous_defects=0 # Replace with logic to get previous defect count
+        echo "previous_defects=${previous_defects}" >> $GITHUB_ENV
