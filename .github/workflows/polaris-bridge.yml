@@ -3,7 +3,7 @@ name: polaris-bridge
 on:
   workflow_dispatch:
   push: 
-     branches: [develop]
+     branches: [ "main", "develop", "feature" ]
   pull_request:
 
 jobs:
