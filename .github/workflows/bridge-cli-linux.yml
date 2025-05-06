@@ -1,4 +1,4 @@
-name: polaris-bridge-cli
+name: polaris-bridge-cli-linux
 
 on:
   workflow_dispatch:
