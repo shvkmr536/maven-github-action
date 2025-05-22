@@ -52,7 +52,6 @@ jobs:
         BRIDGE_POLARIS_BRANCH_NAME: ${{ github.event.ref_name }}
         BRIDGE_DETECT_ARGS: --detect.component.location.analysis.enabled=${{ vars.ENABLER }}
         polaris.waitForScan: ${{ vars.BLD_BREAK_ENABLER }}
-        github.user.token: ${{ secrets.GITH_TOKEN }}
       run: |
           curl -fLsS -o bridge.zip ${{ vars.LATEST_BRIDGECLI_LINUX64 }} && unzip -qo -d $RUNNER_TEMP bridge.zip && rm -f bridge.zip
           $RUNNER_TEMP/bridge-cli-bundle-linux64/bridge-cli --verbose --diagnostics --stage polaris \
@@ -62,6 +61,7 @@ jobs:
           github.repository.name=${{ github.event.repository.name }} \
           github.repository.owner.name=${{ github.repository_owner }} \
           github.repository.pull.number=${{ github.event.number }}
+          github.user.token=${{ secrets.GITH_TOKEN }}
 # added comment for build
     #- name: Upload artifact
     #  uses: actions/upload-artifact@v4
