@@ -21,7 +21,6 @@ jobs:
         distribution: microsoft
         cache: maven
     - name: Polaris Full Scan
-      if: ${{ github.event_name == 'pull_request' }}
       env:
         BRIDGE_POLARIS_SERVERURL: ${{ secrets.BRIDGE_SERVERURL }}
         BRIDGE_POLARIS_ACCESSTOKEN: ${{ secrets.BRIDGE_ACCESSTOKEN }}
