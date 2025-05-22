@@ -60,7 +60,7 @@ jobs:
           github.repository.branch.name=${{ github.ref_name }} \
           github.repository.name=${{ github.event.repository.name }} \
           github.repository.owner.name=${{ github.repository_owner }} \
-          github.repository.pull.number=${{ github.event.number }}
+          github.repository.pull.number=${{ github.event.number }} \
           github.user.token=${{ secrets.GITH_TOKEN }}
 # added comment for build
     #- name: Upload artifact
