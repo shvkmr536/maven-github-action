@@ -2,8 +2,8 @@ name: polaris-bridge-cli-windows
 
 on:
   workflow_dispatch:
-  #push:
-    #branches: [ "main", "develop", "feature"]
+  push:
+    branches: [ "main", "develop", "feature"]
 
 jobs:
   build:

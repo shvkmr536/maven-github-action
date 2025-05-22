@@ -4,10 +4,9 @@ on:
   workflow_dispatch:
   push: 
      branches: [ "main", "develop", "feature" ]
-  pull_request: 
 
 jobs:
-  build:
+  polaris:
 
     runs-on: ubuntu-latest
     steps:
@@ -21,6 +20,7 @@ jobs:
         distribution: microsoft
         cache: maven
     - name: Polaris Full Scan
+      if: ${{ github.event_name != 'pull_request' }}
       env:
         BRIDGE_POLARIS_SERVERURL: ${{ secrets.BRIDGE_SERVERURL }}
         BRIDGE_POLARIS_ACCESSTOKEN: ${{ secrets.BRIDGE_ACCESSTOKEN }}
@@ -40,21 +40,21 @@ jobs:
          ls -lrt $RUNNER_TEMP
          ls -lrt ${{ github.workspace }}
 
-    - name: Upload artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: result-artifact
-        include-hidden-files: true
-        path: ${{ github.workspace }}/.bridge/Polaris Blackduck Execution/detect/runs/
-        overwrite: true
+    #- name: Upload artifact
+    #  uses: actions/upload-artifact@v4
+    #  with:
+    #   name: result-artifact
+    #    include-hidden-files: true
+    #   path: ${{ github.workspace }}/.bridge/Polaris Blackduck Execution/detect/runs/
+    #    overwrite: true
 
-    - name: Download build artifact
-      uses: actions/download-artifact@v4
-      with:
-       name: result-artifact
-       include-hidden-files: true
-       path: ${{ github.workspace }}/.bridge/Polaris Blackduck Execution/detect/runs/
-       overwrite: true
+    #- name: Download build artifact
+    #  uses: actions/download-artifact@v4
+    #  with:
+    #   name: result-artifact
+     #  include-hidden-files: true
+     #  path: ${{ github.workspace }}/.bridge/Polaris Blackduck Execution/detect/runs/
+     #  overwrite: true
       
     
     #- name: download artifact
