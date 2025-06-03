@@ -3,9 +3,9 @@ name: polaris-bridge-cli-linux
 on:
   workflow_dispatch:
   push:
-    branches: [ "main", "develop", "feature"]
+    branches: [ "develop", "feature" ]
   pull_request:
-      branches: [ "main", "develop", "feature"]
+      branches: [ "main" ]
 
 jobs:
   polaris:
