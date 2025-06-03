@@ -3,11 +3,10 @@ name: polaris-bridge
 on:
   workflow_dispatch:
   push: 
-     branches: [develop]
-  pull_request:
+     branches: [ "develop", "feature" ]
 
 jobs:
-  build:
+  polaris:
 
     runs-on: ubuntu-latest
     steps:
@@ -41,21 +40,21 @@ jobs:
          ls -lrt $RUNNER_TEMP
          ls -lrt ${{ github.workspace }}
 
-    - name: Upload artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: result-artifact
-        include-hidden-files: true
-        path: ${{ github.workspace }}/.bridge/Polaris Blackduck Execution/detect/runs/
-        overwrite: true
+    #- name: Upload artifact
+    #  uses: actions/upload-artifact@v4
+    #  with:
+    #   name: result-artifact
+    #    include-hidden-files: true
+    #   path: ${{ github.workspace }}/.bridge/Polaris Blackduck Execution/detect/runs/
+    #    overwrite: true
 
-    - name: Download build artifact
-      uses: actions/download-artifact@v4
-      with:
-       name: result-artifact
-       include-hidden-files: true
-       path: ${{ github.workspace }}/.bridge/Polaris Blackduck Execution/detect/runs/
-       overwrite: true
+    #- name: Download build artifact
+    #  uses: actions/download-artifact@v4
+    #  with:
+    #   name: result-artifact
+     #  include-hidden-files: true
+     #  path: ${{ github.workspace }}/.bridge/Polaris Blackduck Execution/detect/runs/
+     #  overwrite: true
       
     
     #- name: download artifact

@@ -1,15 +1,14 @@
-name: polaris-bridge-cli
+name: polaris-bridge-cli-windows
 
 on:
   workflow_dispatch:
   push:
-    branches: [develop,feature]
-  pull_request:
+    branches: [ "develop", "feature" ]
 
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
     - name: Checkout Source
       uses: actions/checkout@v4
@@ -33,12 +32,11 @@ jobs:
         BRIDGE_DETECT_ARGS: --detect.component.location.analysis.enabled=${{ vars.ENABLER }}
         polaris.waitForScan: ${{ vars.BLD_BREAK_ENABLER }}
       run: |
-         ls -lrt $RUNNER_TEMP
-         curl -fLsS -o bridge.zip ${{ vars.LATEST_BRIDGECLI_LINUX64 }} && unzip -qo -d $RUNNER_TEMP bridge.zip && rm -f bridge.zip
-         ls -lrt $RUNNER_TEMP
-         $RUNNER_TEMP/bridge-cli-bundle-linux64/bridge-cli --verbose --diagnostics --stage polaris
-         ls -lrt $RUNNER_TEMP/bridge-cli-bundle-linux64
-         ls -lrt ${{ github.workspace }} 
+         ls $RUNNER_TEMP
+         Invoke-WebRequest -Uri ${{ vars.BRIDGECLI_WIN64 }} -OutFile bridge.zip
+         Expand-Archive -Path bridge.zip -DestinationPath ${{ runner.temp }} -Force
+         Remove-Item -Path bridge.zip -Force
+         ${{ runner.temp }}/bridge-cli-bundle-win64/bridge-cli --verbose --stage polaris
 # added comment for build
     #- name: Upload artifact
     #  uses: actions/upload-artifact@v4
