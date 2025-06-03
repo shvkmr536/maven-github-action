@@ -4,8 +4,8 @@ on:
   workflow_dispatch:
   push:
     branches: [ "main", "develop", "feature" ]
-  #pull_request:
-  #   branches: [ "main" ] #
+  pull_request:
+    branches: [ "main" ]
   #comment on pull trigger
 
 jobs:
