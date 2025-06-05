@@ -3,7 +3,8 @@ name: polaris-bridge-cli-linux
 on:
   workflow_dispatch:
   push:
-    branches: [ "main", "develop", "feature" ]
+    #branches: [ "main", "develop", "feature" ]
+    branches: ${{ vars.PUSH }}
   pull_request:
     branches: [ "main" ]
   #comment on pull trigger
