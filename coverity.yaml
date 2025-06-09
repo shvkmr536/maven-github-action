@@ -2,5 +2,10 @@ capture:
   build:
     clean-command: mvn -B clean
     build-command: mvn -B -DskipTests package
-caching: 
-  enabled: false 
+  files:
+    exclude-regex: |
+      - "*.github"
+      - "Comps/"
+      - "Comps2/" 
+  caching: 
+    enabled: false 
