@@ -37,7 +37,7 @@ jobs:
          Expand-Archive -Path bridge.zip -DestinationPath ${{ runner.temp }} -Force
          Remove-Item -Path bridge.zip -Force
          ls -Force $RUNNER_TEMP
-         ${{ runner.temp }}/bridge-cli-bundle-win64/bridge-cli --verbose --stage polaris
+         ${{ runner.temp }}/bridge-cli-bundle-win64/bridge-cli --verbose --diagnostics --stage polaris
 # added comment for build
     #- name: Upload artifact
     #  uses: actions/upload-artifact@v4
