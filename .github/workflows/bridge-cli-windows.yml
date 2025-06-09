@@ -32,10 +32,11 @@ jobs:
         BRIDGE_DETECT_ARGS: --detect.component.location.analysis.enabled=${{ vars.ENABLER }}
         polaris.waitForScan: ${{ vars.BLD_BREAK_ENABLER }}
       run: |
-         ls $RUNNER_TEMP
+         ls -Force $RUNNER_TEMP
          Invoke-WebRequest -Uri ${{ vars.BRIDGECLI_WIN64 }} -OutFile bridge.zip
          Expand-Archive -Path bridge.zip -DestinationPath ${{ runner.temp }} -Force
          Remove-Item -Path bridge.zip -Force
+         ls -Force $RUNNER_TEMP
          ${{ runner.temp }}/bridge-cli-bundle-win64/bridge-cli --verbose --stage polaris
 # added comment for build
     #- name: Upload artifact
