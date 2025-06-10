@@ -60,14 +60,14 @@ jobs:
          Expand-Archive -Path bridge.zip -DestinationPath ${{ runner.temp }} -Force
          Remove-Item -Path bridge.zip -Force
          ls -Force $RUNNER_TEMP
-         ${{ runner.temp }}/bridge-cli-bundle-win64/bridge-cli --verbose --stage polaris \
-         polaris.prcomment.enabled=true \
-         polaris.branch.parent.name=${{ github.event.base_ref }} \
-         github.repository.branch.name=${{ github.ref_name }} \
-         github.repository.name=${{ github.event.repository.name }} \
-         github.repository.owner.name=${{ github.repository_owner }} \
-         github.repository.pull.number=${{ github.event.number }} \
-         github.user.token=${{ secrets.GITH_TOKEN }}
+         ${{ runner.temp }}/bridge-cli-bundle-win64/bridge-cli --verbose --stage polaris `
+         polaris.prcomment.enabled=true `
+         polaris.branch.parent.name="${{ github.event.base_ref }}" `
+         github.repository.branch.name="${{ github.ref_name }}" `
+         github.repository.name="${{ github.event.repository.name }}" `
+         github.repository.owner.name="${{ github.repository_owner }}" `
+         github.repository.pull.number="${{ github.event.number }}" `
+         github.user.token="${{ secrets.GITH_TOKEN }}" 
 # added comment for build
     #- name: Upload artifact
     #  uses: actions/upload-artifact@v4
