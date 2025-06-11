@@ -3,7 +3,10 @@ capture:
     clean-command: mvn -B clean
     build-command: mvn -B -DskipTests package
   files:
-    exclude-regex: (^(\.github)\/.*|.*\/(\.github)\/.*)
+    exclude-regex: |
+      - "*.github"
+      - "Comps/"
+      - "Comps2/" 
 caching: 
   enabled: false 
 
