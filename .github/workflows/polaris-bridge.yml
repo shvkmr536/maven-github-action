@@ -5,6 +5,9 @@ on:
   push: 
      branches: [ "develop", "feature" ]
 
+permissions:
+  contents: read
+
 jobs:
   polaris:
 
