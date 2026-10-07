@@ -4,6 +4,8 @@ on:
   workflow_dispatch:
   push:
     branches: [ "develop", "feature" ]
+  pull_request:
+    branches: [ "main" ]
 
 jobs:
   build:
@@ -32,11 +34,41 @@ jobs:
         BRIDGE_DETECT_ARGS: --detect.component.location.analysis.enabled=${{ vars.ENABLER }}
         polaris.waitForScan: ${{ vars.BLD_BREAK_ENABLER }}
       run: |
-         ls $RUNNER_TEMP
+         ls -Force $RUNNER_TEMP
          Invoke-WebRequest -Uri ${{ vars.BRIDGECLI_WIN64 }} -OutFile bridge.zip
          Expand-Archive -Path bridge.zip -DestinationPath ${{ runner.temp }} -Force
          Remove-Item -Path bridge.zip -Force
+         ls -Force $RUNNER_TEMP
          ${{ runner.temp }}/bridge-cli-bundle-win64/bridge-cli --verbose --stage polaris
+
+    - name: Polaris PR Scan
+      if: ${{ github.event_name == 'pull_request' }}
+      env:
+        BRIDGE_POLARIS_SERVERURL: ${{ secrets.BRIDGE_SERVERURL }}
+        BRIDGE_POLARIS_ACCESSTOKEN: ${{ secrets.BRIDGE_ACCESSTOKEN }}
+        BRIDGE_POLARIS_ASSESSMENT_TYPES: 'SAST,SCA'
+        BRIDGE_POLARIS_APPLICATION_NAME: ${{ github.event.repository.name }}
+        BRIDGE_POLARIS_PROJECT_NAME: ${{ github.event.repository.name }}
+        BRIDGE_POLARIS_BRANCH_NAME: ${{ github.event.ref_name }}
+        #BRIDGE_DETECT_ARGS: '-d'
+        #BRIDGE_DETECT_ARGS: --detect.cleanup=true
+        BRIDGE_DETECT_ARGS: --detect.component.location.analysis.enabled=${{ vars.ENABLER }}
+        polaris.waitForScan: ${{ vars.BLD_BREAK_ENABLER }}
+      run: |
+         ls -Force $RUNNER_TEMP
+         Invoke-WebRequest -Uri ${{ vars.BRIDGECLI_WIN64 }} -OutFile bridge.zip
+         Expand-Archive -Path bridge.zip -DestinationPath ${{ runner.temp }} -Force
+         Remove-Item -Path bridge.zip -Force
+         ls -Force $RUNNER_TEMP
+         ${{ runner.temp }}/bridge-cli-bundle-win64/bridge-cli --verbose --stage polaris `
+         polaris.prcomment.enabled=true `
+         polaris.branch.parent.name="${{ github.event.base_ref }}" `
+         github.repository.branch.name="${{ github.ref_name }}" `
+         github.repository.name="${{ github.event.repository.name }}" `
+         github.repository.owner.name="${{ github.repository_owner }}" `
+         github.repository.pull.number="${{ github.event.number }}" `
+         github.user.token="${{ secrets.GITH_TOKEN }}"
+      shell: pwsh 
 # added comment for build
     #- name: Upload artifact
     #  uses: actions/upload-artifact@v4
